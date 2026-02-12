@@ -1,0 +1,32 @@
+<article class="home-root">
+  <section class="hero">
+    <h1>I am learning Angular</h1>
+  </section>
+
+  <section class="git-graph">
+    <h2>Git Graph</h2>
+
+    <div class="repo-controls">
+      <div>Repository: <strong>yashraj-shitole/learn-angular</strong></div>
+    </div>
+
+    <div class="status">
+      <div class="error" *ngIf="error">Error: {{error}}</div>
+      <div *ngIf="!error && commits.length === 0">Loading commits…</div>
+    </div>
+
+    <div class="chart" *ngIf="commits.length > 0">
+      <div class="line" aria-hidden="true"></div>
+      <div class="points">
+        <div *ngFor="let c of commits; let i = index"
+             class="point"
+             (mouseenter)="setHover(c)"
+             (mouseleave)="clearHover()">
+          <div class="dot" title="{{c.message}}"></div>
+          <div class="label">{{formatDate(c.date)}}</div>
+        </div>
+      </div>
+      <div class="tooltip" *ngIf="hovered">{{hovered.message}}</div>
+    </div>
+  </section>
+</article>

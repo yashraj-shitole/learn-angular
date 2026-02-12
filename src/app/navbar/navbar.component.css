@@ -1,0 +1,19 @@
+.tui-tab-bar{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: white;
+}
+.item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  color: #475569;
+}
+.label{
+  font-size: 0.75rem;
+}
+.active .item{
+  color: #0f62fe;
+}

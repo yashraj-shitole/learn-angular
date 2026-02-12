@@ -1,0 +1,84 @@
+.home-root{
+  padding: 2rem;
+  font-family: Inter, system-ui, sans-serif;
+}
+.hero{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.hero h1{
+  font-size: 2.2rem;
+  margin: 0 0 0.5rem 0;
+}
+.subtitle{
+  color: #666;
+}
+.git-graph{
+  max-width: 800px;
+  margin: 0 auto;
+}
+.repo-controls{
+  display:flex;
+  gap:0.5rem;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:1rem;
+}
+.repo-controls input{
+  padding:0.4rem 0.6rem;
+  border:1px solid #ddd;
+  border-radius:4px;
+}
+.repo-controls button{ padding:0.4rem 0.6rem; }
+.live{ color:#e33; margin-left:0.5rem; font-weight:600 }
+.status{ text-align:center; margin-bottom:0.8rem }
+.error{ color:#b00020 }
+.chart{
+  position: relative;
+  padding: 2rem 1rem 3rem 1rem;
+}
+.chart .line{
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  top: 2.5rem;
+  height: 3px;
+  background: linear-gradient(90deg,#cfe3ff,#a0c4ff);
+  border-radius: 2px;
+}
+.points{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.point{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width: 1px;
+}
+.dot{
+  width: 14px;
+  height: 14px;
+  background: #2f80ed;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(47,128,237,0.12);
+  cursor: default;
+}
+.label{
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color:#444;
+}
+.tooltip{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  margin-top: -1.6rem;
+  background: #111;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
