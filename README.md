@@ -1,59 +1,171 @@
-# LearnAngular
+# LearnAngular — Step‑by‑Step Guide
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+This repository is a small Angular app used to learn Angular incrementally. The sections below present a recommended learning path, concise explanations, exercises, and useful commands so you can progress from beginner to intermediate topics.
 
-## Development server
+**Prerequisites:** Node.js (16+ recommended), npm or pnpm, basic JavaScript/TypeScript knowledge.
 
-To start a local development server, run:
+**Quick tips:**
+- **Follow a step:** try the exercises at the end of each section.
+- **Use the app in this repo:** it's a playground for the exercises.
 
-```bash
-ng serve
+**Learning Path (high level)**
+1. Project setup & tooling
+2. Components & templates
+3. Data binding & directives
+4. Dependency injection & services
+5. Routing & navigation
+6. Forms (template & reactive)
+7. HTTP, Observables, and state
+8. Testing and deployment
+
+---
+
+**1 — Setup & quick start**
+
+Install dependencies and run the dev server:
+
+```powershell
+npm install
+npm run start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open http://localhost:4200/ in your browser. The app reloads on changes.
 
-## Code scaffolding
+Exercise: change `src/app/app.html` or `src/app/app.ts` to show your name.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
+**2 — Components & TypeScript fundamentals**
+
+- Learn how to create components, inputs, outputs, and lifecycle hooks.
+- Files: `src/app/*.ts`, `src/app/*.html`, `src/app/*.css`.
+
+Try:
+- Generate a new component: `ng generate component hello` (or manually add files).
+- Add an `@Input()` and display it in the template.
+
+Exercise: add a `GreetingComponent` that accepts a `name` input and displays "Hello, {name}!".
+
+---
+
+**3 — Templates, binding, and directives**
+
+- One-way / two-way binding: interpolation (`{{ }}`), property binding (`[prop]`), event binding (`(event)`), and `[(ngModel)]`.
+- Built-in directives: `*ngIf`, `*ngFor`, `ngClass`, `ngStyle`.
+
+Try:
+- Render a list of items with `*ngFor` and add an `*ngIf` toggle.
+
+Exercise: build a todo list with add/remove and a filter.
+
+---
+
+**4 — Services & Dependency Injection (DI)**
+
+- Use services to share data and logic between components.
+- Learn provider scopes (`root`, component) and injection tokens.
+
+Try:
+- Create a `TodoService` to manage the todo list and inject it into components.
+
+Exercise: persist todos to `localStorage` in the service.
+
+---
+
+**5 — Routing & navigation**
+
+- Configure routes, route parameters, lazy loading, and guards.
+
+Try:
+- Add two pages and navigate between them with `RouterLink`.
+
+Exercise: create a `Details` route that reads an ID parameter and displays item details.
+
+---
+
+**6 — Forms (Template-driven & Reactive)**
+
+- Template-driven: simple forms using `ngModel`.
+- Reactive forms: `FormControl`, `FormGroup`, validators, and valueChanges.
+
+Try:
+- Implement a form to add/edit items with validation.
+
+Exercise: switch the form between template-driven and reactive implementations.
+
+---
+
+**7 — HTTP, Observables, and state management**
+
+- Use `HttpClient` for REST calls; understand `Observable` (RxJS) basics: `subscribe`, `map`, `switchMap`, `takeUntil`.
+- Consider simple state patterns: services with BehaviorSubject or libraries (NgRx / Akita) for larger apps.
+
+Try:
+- Call a public API (e.g., JSONPlaceholder) and display results.
+
+Exercise: implement loading and error states for HTTP requests.
+
+---
+
+**8 — Testing (unit & component)**
+
+- Learn to write unit tests for services and components. This repo uses Vitest/Jest-style commands.
+
+Run tests:
+
+```powershell
+npm run test
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Exercise: add tests for `TodoService` and a component.
 
-```bash
-ng generate --help
+---
+
+**9 — Build & deploy**
+
+Build the project for production:
+
+```powershell
+npm run build
 ```
 
-## Building
+Deploy the `dist/` output to static hosts (Netlify, Vercel, GitHub Pages) or a server.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+**10 — Advanced topics & performance**
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- ChangeDetection strategies (`OnPush`), lazy loading, preloading strategies, and server-side rendering (Angular Universal).
+- Modern Angular topics: Signals, standalone components, and fine-grained reactivity.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**Exercises & mini-project ideas**
+- Weather app (HTTP API + reactive forms)
+- Notes app (CRUD + localStorage + routing)
+- Blog list (pagination + detail route + search)
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+**Commands Cheat Sheet**
+- Install dependencies: `npm install`
+- Start dev server: `npm run start` (or `ng serve`)
+- Run tests: `npm run test`
+- Build production: `npm run build`
+- Generate code (if Angular CLI available): `ng generate component my-comp`
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+**Resources**
+- Official docs: https://angular.dev
+- TypeScript: https://www.typescriptlang.org
+- RxJS: https://rxjs.dev
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+If you want, I can:
+- run the dev server and confirm it starts, or
+- commit the README update, or
+- add a sample exercise scaffold in `src/app`.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Enjoy learning Angular!
