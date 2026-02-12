@@ -1,65 +1,62 @@
 // Auto-generated test stubs for src/app/home/home.component.ts
-import { } from './home.component';
+import { of, throwError, firstValueFrom } from 'rxjs';
+import { HomeComponent } from './home.component';
 
 describe('src/app/home/home.component.ts', () => {
-  it('should have tests for HomeComponent.formatDate', () => {
-    /* COPILOT_PROMPT_START
-    Implement a Jest unit test for the exported symbol: HomeComponent.formatDate
-    Signature: formatDate(d: string)
-    Source: formatDate(d: string) { const dt = new Date(d); return dt.toLocaleString(); }
-    File: src/app/home/home.component.ts
-    Instructions: write a focused, minimal unit test that imports the symbol from './home.component', exercises typical behavior, and uses Jest assertions.
-    Replace this comment with the test implementation.
-    COPILOT_PROMPT_END */
-    expect(true).toBeTruthy();
+  it('formatDate should return the locale string for a date', () => {
+    const http: any = {};
+    const c = new HomeComponent(http as any);
+    const iso = '2020-01-02T03:04:05Z';
+    const expected = new Date(iso).toLocaleString();
+    expect(c.formatDate(iso)).toBe(expected);
   });
 
-  it('should have tests for HomeComponent.ngOnInit', () => {
-    /* COPILOT_PROMPT_START
-    Implement a Jest unit test for the exported symbol: HomeComponent.ngOnInit
-    Signature: ngOnInit(): void
-    Source: ngOnInit(): void { // load commits once at component initialization this.fetchAllCommits(this.owner, this.repo).subscribe({ next: (arr) => { this.commits = arr; if (arr.length) this.lastFetchedDate = arr[0].date; }, error: (err) => (this.error = err?.message || 'Failed to load commits') }); }
-    File: src/app/home/home.component.ts
-    Instructions: write a focused, minimal unit test that imports the symbol from './home.component', exercises typical behavior, and uses Jest assertions.
-    Replace this comment with the test implementation.
-    COPILOT_PROMPT_END */
-    expect(true).toBeTruthy();
+  it('ngOnInit should load commits and set lastFetchedDate', () => {
+    const mockApiResponse = [
+      { commit: { author: { date: '2021-01-01T00:00:00Z' }, message: 'First' }, sha: 'a1' },
+      { commit: { committer: { date: '2021-01-02T00:00:00Z' }, message: 'Second' }, sha: 'b2' }
+    ];
+    let called = false;
+    const http: any = { get: (url: string) => { called = true; return of(mockApiResponse); } };
+    const c = new HomeComponent(http as any);
+    // ngOnInit should synchronously subscribe to the observable emitted by of(...)
+    c.ngOnInit();
+    expect(called).toBe(true);
+    expect(c.commits.length).toBe(2);
+    expect(c.commits[0].date).toBe('2021-01-01T00:00:00Z');
+    expect(c.commits[0].message).toBe('First');
+    expect(c.lastFetchedDate).toBe('2021-01-01T00:00:00Z');
+    expect(c.error).toBeNull();
   });
 
-  it('should have tests for HomeComponent.setHover', () => {
-    /* COPILOT_PROMPT_START
-    Implement a Jest unit test for the exported symbol: HomeComponent.setHover
-    Signature: setHover(c: { date: string; message: string })
-    Source: setHover(c: { date: string; message: string }) { this.hovered = c; }
-    File: src/app/home/home.component.ts
-    Instructions: write a focused, minimal unit test that imports the symbol from './home.component', exercises typical behavior, and uses Jest assertions.
-    Replace this comment with the test implementation.
-    COPILOT_PROMPT_END */
-    expect(true).toBeTruthy();
+  it('ngOnInit should set error when fetch fails', () => {
+    const http: any = { get: (url: string) => throwError(() => new Error('boom')) };
+    const c = new HomeComponent(http as any);
+    c.ngOnInit();
+    expect(c.commits.length).toBe(0);
+    expect(c.error).toBe('boom');
   });
 
-  it('should have tests for HomeComponent.clearHover', () => {
-    /* COPILOT_PROMPT_START
-    Implement a Jest unit test for the exported symbol: HomeComponent.clearHover
-    Signature: clearHover()
-    Source: clearHover() { this.hovered = null; }
-    File: src/app/home/home.component.ts
-    Instructions: write a focused, minimal unit test that imports the symbol from './home.component', exercises typical behavior, and uses Jest assertions.
-    Replace this comment with the test implementation.
-    COPILOT_PROMPT_END */
-    expect(true).toBeTruthy();
+  it('setHover and clearHover should update hovered state', () => {
+    const http: any = {};
+    const c = new HomeComponent(http as any);
+    const item = { date: 'd', message: 'm' };
+    c.setHover(item);
+    expect(c.hovered).toBe(item);
+    c.clearHover();
+    expect(c.hovered).toBeNull();
   });
 
-  it('should have tests for HomeComponent.fetchAllCommits', () => {
-    /* COPILOT_PROMPT_START
-    Implement a Jest unit test for the exported symbol: HomeComponent.fetchAllCommits
-    Signature: fetchAllCommits(owner: string, repo: string)
-    Source: private fetchAllCommits(owner: string, repo: string) { const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=50`; return this.http.get<any[]>(url).pipe( map((arr) => { return (arr || []).map((it) => ({ date: it.commit?.author?.date || it.commit?.committer?.date || '', message: it.commit?.message || '', sha: it.sha })); }) ); }
-    File: src/app/home/home.component.ts
-    Instructions: write a focused, minimal unit test that imports the symbol from './home.component', exercises typical behavior, and uses Jest assertions.
-    Replace this comment with the test implementation.
-    COPILOT_PROMPT_END */
-    expect(true).toBeTruthy();
+  it('fetchAllCommits should map api shape to simplified commits', async () => {
+    const api = [
+      { commit: { author: { date: '2022-02-02T00:00:00Z' }, message: 'A' }, sha: 's1' },
+      { commit: { committer: { date: '2022-02-03T00:00:00Z' }, message: 'B' }, sha: 's2' }
+    ];
+    const http: any = { get: (url: string) => of(api) };
+    const c = new HomeComponent(http as any);
+    const arr: any[] = await firstValueFrom((c as any).fetchAllCommits('o', 'r') as any);
+    expect(arr.length).toBe(2);
+    expect(arr[0]).toEqual({ date: '2022-02-02T00:00:00Z', message: 'A', sha: 's1' });
+    expect(arr[1]).toEqual({ date: '2022-02-03T00:00:00Z', message: 'B', sha: 's2' });
   });
-
 });
